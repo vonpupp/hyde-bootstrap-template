@@ -14,9 +14,11 @@
 </time>
 
 {% if resource.meta.tags %}
+{% set browser_lang = resource.meta.language %}
 <div class="pull-right">
 {% for tag in resource.meta.tags %}
-    <span class="badge"><a href="{{ content_url('blog/tags/'~tag~'.html') }}">{{ tag }}</a></span>
+    {% set tag_url = browser_lang + content_url('tags/'~tag~'.html') %}
+    <span class="badge"><a href="/{{ tag_url }}">{{ tag }}</a></span>
 {% endfor %}
 </div>
 {% endif %}

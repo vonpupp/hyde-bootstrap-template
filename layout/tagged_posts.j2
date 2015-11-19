@@ -1,5 +1,56 @@
 {% extends "topbar.j2" %}
 
+{% set tag_dict = {} %}
+{% for tag, meta in site.tagger.tags %}
+   {% set tag_res = [] %}
+   {% for res in meta.resources %}
+      {% set lang_root = site.content.source_folder.child_folder(res.meta.language) %}
+      {% if resource.node.source_folder.is_descendant_of(lang_root) or resource.node.source_folder == lang_root %}
+      {% do tag_res.append(res) %}
+      {% endif %}
+   {% endfor %}
+   {% do tag_dict.update({meta.name: tag_res}) %}
+{% endfor %}
+
+{% macro render_blog_listing(resources) %}
+  {% for res in resources %}
+    <div class="container post format-image">
+      <div class="entry">
+	<header class="entry-header">
+	  <h2><a href="{{ res.full_url }}">{{ res.meta.title }}</a></h2>
+	  <div class="meta">
+	    <small><i class="fa fa-calendar"></i>{{res.meta.created.strftime('%A %d %B %Y') }}</small>
+	    <small>
+	      <i class="fa fa-folder"></i>
+            {% set lang = resource.meta.language %}
+            {% for tag in res.meta.tags %}
+              <a href="{{ broser_lang }}/blog/tags/{{ locale_tag }}.html">{{ site.tagger.tags[tag]|attr("descr_" + lang)|e }}{{ site.tagger.tags[tag].descr|e }}</a>
+              {% endfor %}
+	    </small>
+            {% if (disqus_id) != "None" %}
+            <a href="{{ site_url }}{{ res.full_url }}#disqus_thread">
+              <i class="fa fa-comment"></i> {{ resource.meta.l10n.comments }}
+            </a>
+            {% endif %}
+	  </div>
+	</header>
+	<div class="entry-content">
+          {% if res.meta.image %}
+            <a href="{{ res.full_url }}">
+              <div class="blog-title-image" style="background-image: url('{{ res.meta.image }}');">
+              </div>
+            </a>
+          {% endif %}
+          {% refer to res.relative_deploy_path as post %}
+          {{ post.excerpt|markdown }}
+	  <a href="{{ res.full_url }}" class="btn btn-default white">{{resource.meta.l10n.readmore}}</a>
+	</div>
+      </div>
+    </div>
+    <hr>
+  {% endfor %}
+{% endmacro %}
+
 {% block container %}
 <section class="archives">
 <h1>{{ tag.name }}</h1>
@@ -15,8 +66,10 @@
     </div>
     <div class="span3"><div class="pull-right">
     {% if resource.meta.tags %}
+    {% set browser_lang = resource.meta.language %}
     {% for tag in resource.meta.tags %}
-        <span class="badge badge-inverse"><a href="{{ content_url('blog/tags/'~tag~'.html') }}">{{ tag }}</a></span>
+        {% set tag_url = browser_lang + content_url('tags/'~tag~'.html') %}
+        <span class="badge badge-inverse"><a href="/{{ tag_url }}">{{ tag }}</a></span>
     {% endfor %}
     {% endif %}
     </div></div>

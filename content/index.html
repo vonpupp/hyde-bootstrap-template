@@ -1,19 +1,19 @@
 ---
-title: Page name
-subtitle: Columns template
-description: Test description
+extends: false
+default_block: article
+description: Language selection page
+paginator:
+    sorter: time
+    size: 10
+    file_pattern: page$PAGE$EXT
 ---
 
-{% extends "fullwidth.j2" %}
+Redirecting...
 
-{% block headline %}
-# Hyde-Bootstrap v3.0 starter template
-{% endblock %}
-
-{% block leadtext %}
-[hyde-bootstrap](http://github.com/auzigog/hyde-bootstrap/) is a layout for Hyde based on the Bootstrap framework.
-
-This particular page is based on Bootstrap v3.0.0.rc.2 [starter template - demo](http://getbootstrap.com/examples/starter-template/)/[starter-template.html - repo](https://github.com/twbs/bootstrap/blob/3.0.0-wip/examples/starter-template/index.html) example.
-{% endblock %}
-
-
+<script>
+l = 'en';
+{% for code, lang in languages %}
+if (navigator.language.split(/-/)[0] === "{{ code }}")  l = "{{ content_url(code) }}";
+{%- endfor %}
+location.href = l;
+</script>

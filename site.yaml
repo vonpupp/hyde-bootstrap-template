@@ -1,54 +1,86 @@
 mode: development # Use "hyde publish -c prod.yaml to have this automatically switch to production
+simple_copy:
+  - media/*
 media_root: media # Relative path from content folder.
 media_url: /media # URL where the media files are served from.
+
 plugins:
     - hyde.ext.plugins.meta.MetaPlugin
     - hyde.ext.plugins.auto_extend.AutoExtendPlugin
     - hyde.ext.plugins.syntext.SyntextPlugin
     - hyde.ext.plugins.textlinks.TextlinksPlugin
     - hyde.ext.plugins.meta.SorterPlugin
+    - hyde.ext.plugins.languages.LanguagePlugin
     - hyde.ext.plugins.meta.TaggerPlugin
+
 context:
-    data:
-        site_title: Site Name
-        author:
-            name: Author Name
-            url: "http://example.com"
-        google_analytics_id: UA-XXXXX-YY
-        home_url: index.html
-        menu:
-            - title: Starter Template
-              type: page
-              url: index.html
-            - title: Off Canvas
-              type: page
-              url: offcanvas.html
-            - title: Jumbotron
-              type: page
-              url: jumbo.html
-            - title: Blog
-              type: node
-              url: blog
-        sidebar:
-            - title: One
-              url: one.html
-            - title: Two
-              url: \#
+  data:
+    site_title: Site Name
+    author:
+      name: Author Name
+      url: "http://example.com"
+      google_analytics_id: UA-XXXXX-YY
+      home_url: index.html
+    languages:
+      fr: Français
+      en: English
+#      menu:
+#        - title: Starter Template
+#        type: page
+#        url: index.html
+#            - title: Off Canvas
+#            type: page
+#            url: offcanvas.html
+#            - title: Jumbotron
+#            type: page
+#            url: jumbo.html
+#            - title: Blog
+#            type: node
+#            url: blog
+#        sidebar:
+#          - title: One
+#          url: one.html
+#            - title: Two
+#            url: \#
+
 sorter:
-    time:
-        attr:
-            - meta.created
-        reverse: true
-        filters:
-            source.kind: html
-            meta.listable: true
+  name:
+    attr: name
+    filters:
+      source_file.kind: html
+      is_processable: True
+  time:
+     attr: meta.created
+     reverse: True
+     filters:
+       source_file.kind: html
+       is_processable: True
+
 tagger:
-    sorter: time
-    archives:
-        blog:
-            source: blog
-            target: blog/tags
-            template: tagged_posts.j2
-            archive_extension: html
-            meta:
-                listable: false
+  sorter: time
+  archives:
+    blog_en:
+      source: en/blog
+      target: en/tags
+      template: tagged_posts.j2
+      extension: html
+#      archive_extension: html
+#      meta:
+#        listable: false
+  tags:
+    "Arch":
+      descr: "Arch"
+    "Hyde":
+      descr: "Hyde"
+    "Python":
+      descr: "Python"
+    "System":
+      descr_en: "System"
+      descr_es: "Sistema"
+      descr_pt: "Sistema"
+    "Private":
+      descr: "Private"
+
+meta:
+  nodemeta: meta.yaml
+  lc: 'en_US'
