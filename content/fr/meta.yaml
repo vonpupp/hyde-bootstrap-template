@@ -5,7 +5,7 @@ language: fr
 lc: fr_FR
 
 l10n:
-  created_by: "Cree par"
-  posted: "Poste"
-  tags: "Tags"
-  readmore: "Lire plus"
+  created_by: "Par"
+  posted: "Posté le"
+  tags: "Catégorie"
+  readmore: "Lire la suite"
