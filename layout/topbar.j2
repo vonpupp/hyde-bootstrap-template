@@ -23,6 +23,22 @@
       </ul>
     </div><!-- /.nav-collapse -->
   </div><!-- /.container -->
+
+  {% if resource.translations %}
+  <div id="langnavbar" class="nav navbar-nav pull-right navbar-lang navbar-collapse collapse">
+      <ul class="nav navbar-nav pull-right navbar-lang">
+          <li>
+              {{ resource.meta.l10n.translations|e }}:
+          </li>
+          {% for translation in resource.translations %}
+              <li>
+                  <a href="{{ content_url(translation.url) }}">{{ languages[translation.meta.language] }}</a>
+              </li>
+          {% endfor %}
+      </ul>
+  </div>
+  {% endif %}
+
   {% endblock topbar %}
 </div><!-- /.navbar -->
 {{ super() }} {# Use this to include the rest of the body block as it was originally defined #}

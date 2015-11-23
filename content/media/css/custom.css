@@ -1,0 +1,12 @@
+.navbar-lang li{
+    display: inline;
+    padding: 2px;
+    color: #999999;
+    display: block;
+}
+
+.navbar-lang > li > a {
+    padding: 0px;
+    color: #999999;
+    display: block;
+}
