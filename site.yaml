@@ -24,24 +24,6 @@ context:
     languages:
       fr: Français
       en: English
-#      menu:
-#        - title: Starter Template
-#        type: page
-#        url: index.html
-#            - title: Off Canvas
-#            type: page
-#            url: offcanvas.html
-#            - title: Jumbotron
-#            type: page
-#            url: jumbo.html
-#            - title: Blog
-#            type: node
-#            url: blog
-#        sidebar:
-#          - title: One
-#          url: one.html
-#            - title: Two
-#            url: \#
 
 sorter:
   name:
@@ -67,19 +49,20 @@ tagger:
 #      archive_extension: html
 #      meta:
 #        listable: false
+
   tags:
-    "Arch":
-      descr: "Arch"
-    "Hyde":
-      descr: "Hyde"
-    "Python":
-      descr: "Python"
-    "System":
-      descr_en: "System"
-      descr_es: "Sistema"
-      descr_pt: "Sistema"
-    "Private":
-      descr: "Private"
+    "happy":
+      descr_en: "Happy"
+      descr_fr: "Content"
+    "angry":
+      descr_en: "Angry"
+      descr_fr: "Colère"
+    "sad":
+      descr_en: "Sad"
+      descr_fr: "Triste"
+    "thoughts":
+      descr_en: "Thoughts"
+      descr_fr: "Pensées"
 
 meta:
   nodemeta: meta.yaml

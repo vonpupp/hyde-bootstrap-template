@@ -14,11 +14,14 @@
 </time>
 
 {% if resource.meta.tags %}
-{% set browser_lang = resource.meta.language %}
+{% set lang = resource.meta.language %}
 <div class="pull-right">
+{% set lang = resource.meta.language %}
 {% for tag in resource.meta.tags %}
-    {% set tag_url = browser_lang + content_url('tags/'~tag~'.html') %}
-    <span class="badge"><a href="/{{ tag_url }}">{{ tag }}</a></span>
+    {% set tag_url = lang + content_url('tags/'~tag~'.html') %}
+    <span class="badge"><a href="/{{ tag_url }}">
+    {{ site.tagger.tags[tag]|attr("descr_" + lang)|e }}{{ site.tagger.tags[tag].descr|e }}
+    </a></span>
 {% endfor %}
 </div>
 {% endif %}
