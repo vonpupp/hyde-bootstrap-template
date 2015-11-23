@@ -1,0 +1,4 @@
+title: Home
+extends: blog.j2
+default_block: post
+listable: false

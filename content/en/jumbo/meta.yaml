@@ -1,0 +1,4 @@
+title: Jumbo
+extends: blog.j2
+full_url: jumbo/jumbo.html
+listable: true

@@ -1,19 +1,18 @@
 {% macro render_main_menu() -%}
-
-{% for item in menu -%}
-    {% set active = False -%}
-    {% if item.type == 'page' -%}
-        {% set active = (resource.url ==
-            site.content.resource_from_relative_path(item.url).url) -%}
-    {% else -%}
-        {% set active = (node ==
-            site.content.node_from_relative_path(item.url)) -%}
-    {%- endif %}
-    <li {% if active %}class="active"{% endif %}>
-        <a href="{{ content_url(item.url) }}">{{ item.title }}</a>
-    </li>
+<li>{{ resource.meta.language }}</li>
+{% set lang_root = site.content.node_from_relative_path(resource.meta.language|default('en')) %}
+{% for menu_item in lang_root.child_nodes|sort(attribute='name') %}
+    {% if menu_item.meta.listable %}
+        <li{% if menu_item.full_url in resource.full_url %} class="active"{% endif %}>
+            <a href="{{ menu_item.full_url }}">
+            {% if menu_item.meta.icon %}
+            <span class="glyphicon glyphicon-{{menu_item.meta.icon}}"></span>
+            {% endif %}
+            {{ menu_item.meta.title|capitalize }}
+            </a>
+        </li>
+    {% endif %}
 {%- endfor %}
-
 {%- endmacro %}
 
 {% macro render_sidebar() -%}
@@ -31,12 +30,13 @@
 <h3><a href="{{ content_url(res.url) }}">{{ res.meta.title }}</a></h3>
 <p><small>
   <time datetime="{{ res.meta.created.strftime('%Y-%m-%d') }}">
-    Posted: {{ res.meta.created.strftime('%a, %d %b %Y') }}
+      {{ resource.meta.l10n.posted }}: {{ res.meta.created.strftime('%a, %d %b %Y') }}
   </time>
 </small></p>
-{{ post.excerpt|markdown|typogrify }}<a href="{{ content_url(res.url) }}">Read more&hellip;</a>
+{{ post.excerpt|markdown|typogrify }}<a href="{{ content_url(res.url) }}">{{ resource.meta.l10n.readmore }}&hellip;</a>
 </div>
 {% endmacro %}
 
 
 
+<!--  vim: set filetype=htmldjango: -->

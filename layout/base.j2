@@ -75,7 +75,7 @@
       <hr>
       <footer>
         {% block footer %}
-        <p>Created by <a href="{{ author.url }}">{{ author.name }}</a></p>
+        <p>{{ resource.meta.l10n.created_by }} <a href="{{ author.url }}">{{ author.name }}</a></p>
         {% endblock footer %}
       </footer>
     </div> <!-- /container -->
@@ -86,8 +86,7 @@
     {# Javascript at the bottom for fast page loading #}
     {% block jquery %}
     {# Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary #}
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="{{ media_url('js/libs/jquery-1.10.1.min.js') }}">\x3C/script>')</script>
+    <script>window.jQuery || document.write('<script src="{{ media_url('js/libs/jquery.js') }}">\x3C/script>')</script>
     {% endblock jquery %}
 
     {% block bootstrap_scripts %}

@@ -1,0 +1,11 @@
+extends: base.j2
+default_block: blog
+
+language: fr
+lc: fr_FR
+
+l10n:
+  created_by: "Cree par"
+  posted: "Poste"
+  tags: "Tags"
+  readmore: "Lire plus"

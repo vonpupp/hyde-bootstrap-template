@@ -1,5 +1,4 @@
-title: Blog
+title: offcanvas
 extends: blog.j2
 default_block: post
-icon: pencil
 listable: true
