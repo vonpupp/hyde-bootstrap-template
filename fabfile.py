@@ -19,7 +19,7 @@ def _deploy():
 
 def _run():
     _deploy()
-    local('cd deploy && python2 -m SimpleHTTPServer')
+    local('cd deploy && python2 -m SimpleHTTPServer 8123')
 
 
 @task
