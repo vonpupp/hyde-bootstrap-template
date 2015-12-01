@@ -5,4 +5,9 @@ deploy
 *.log
 *.pyc
 
+# ENV
+env
+
+# TAGS
 content/en/tags
+content/fr/tags
