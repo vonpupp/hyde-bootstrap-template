@@ -2,6 +2,7 @@ from __future__ import with_statement
 from fabric.api import *
 
 HYDE_CONFIG = 'site.yaml'
+PORT = 8123
 
 
 def _hyde(args):
@@ -19,7 +20,17 @@ def _deploy():
 
 def _run():
     _deploy()
-    local('cd deploy && python2 -m SimpleHTTPServer 8123')
+    kill()
+    _hyde('serve -p {}'.format(PORT))
+    #local('cd deploy && python2 -m SimpleHTTPServer 8123')
+
+
+@task
+def kill():
+    try:
+        local('pkill -f "hyde -x serve"')
+    except:
+        pass
 
 
 @task
@@ -32,6 +43,6 @@ def deploy():
     _deploy()
 
 
-@task
+@task(default=True)
 def run():
     _run()
